@@ -38,15 +38,15 @@
 
 | Column           | Type      | Options                        |
 | ---------------- | --------- | ------------------------------ |
-| name             | text      | null: false                    |
+| name             | string    | null: false                    |
 | description      | text      | null: false                    | 
-| category_id      | string    | null: false                    |
-| condition_id     | string    | null: false                    |
+| category_id      | integer   | null: false                    |
+| condition_id     | integer   | null: false                    |
 | delivery_fee_id  | integer   | null: false                    |
-| prefecture_id    | string    | null: false                    |
+| prefecture_id    | integer   | null: false                    |
 | delivery_day_id  | integer   | null: false                    |
-| price            | string    | null: false                    |
-| user_id          | reference | null: false, foreign_key: true |
+| price            | integer   | null: false                    |
+| user             | reference | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -59,12 +59,12 @@
 | Column           | Type      | Options                        |
 | ---------------- | --------- | ------------------------------ |
 | post-code        | string    | null: false                    |
-| prefecture       | string    | null: false                    |
+| prefecture_id    | integer   | null: false                    |
 | city_name        | string    | null: false                    |
 | street           | string    | null: false                    |
 | building-name    | string    |                                |
 | phone-number     | string    | null: false                    |
-| user_id          | reference | null: false, foreign_key: true |
+| purchase         | reference | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
