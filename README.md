@@ -36,17 +36,17 @@
 
 ## items テーブル
 
-| Column           | Type      | Options                        |
-| ---------------- | --------- | ------------------------------ |
-| name             | string    | null: false                    |
-| description      | text      | null: false                    | 
-| category_id      | integer   | null: false                    |
-| condition_id     | integer   | null: false                    |
-| delivery_fee_id  | integer   | null: false                    |
-| prefecture_id    | integer   | null: false                    |
-| delivery_day_id  | integer   | null: false                    |
-| price            | integer   | null: false                    |
-| user             | reference | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| name             | string     | null: false                    |
+| description      | text       | null: false                    | 
+| category_id      | integer    | null: false                    |
+| condition_id     | integer    | null: false                    |
+| delivery_fee_id  | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| delivery_day_id  | integer    | null: false                    |
+| price            | integer    | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -54,17 +54,17 @@
 
 
 
-## address テーブル
+## addresses テーブル
 
-| Column           | Type      | Options                        |
-| ---------------- | --------- | ------------------------------ |
-| post-code        | string    | null: false                    |
-| prefecture_id    | integer   | null: false                    |
-| city_name        | string    | null: false                    |
-| street           | string    | null: false                    |
-| building-name    | string    |                                |
-| phone-number     | string    | null: false                    |
-| purchase         | reference | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| post_code        | string     | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| city_name        | string     | null: false                    |
+| street           | string     | null: false                    |
+| building_name    | string     |                                |
+| phone_number     | string     | null: false                    |
+| purchase         | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :purchase
