@@ -16,11 +16,6 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
 
-      it '販売価格についての情報が必須であること' do
-        @item.price = ''
-        @item.valid?
-        expect(@item.errors.full_messages).to include("Price can't be blank", "Price Half-width number", "Price Out of setting range")
-      end
     end
 
     context '商品出品ページへ遷移できないこと' do
@@ -72,15 +67,41 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
 
-      it 'priceは、¥300~¥9,999,999の間のみ保存可能であること' do
-        @item.price = '200'
+      it '販売価格についての情報が必須であること' do
+        @item.price = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price can't be blank", "Price Half-width number", "Price Out of setting range")
+      end
+
+      it 'priceは、¥300以下のみ登録可能であること' do
+        @item.price = 200
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
 
-      it 'priceは半角数字のみ保存可能であること' do
+      it 'priceは、¥10_000_000円以上では登録できないこと' do
+        @item.price = 10000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+
+
+      it 'priceは半角数字のみ出品可能であること' do
         @item.price = '１００００'
         @item.valid?
+        expect(@item.errors.full_messages).to include("Price Half-width number", "Price Out of setting range")
+      end
+
+      it 'priceは半角英字のみでは出品できないこと' do
+        @item.price = 'aaaaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Half-width number", "Price Out of setting range")
+      end
+
+      it 'priceは半角英字混合では出品できないこと' do
+        @item.price = 'aaa111'
+        @item.valid?
+        binding.pry
         expect(@item.errors.full_messages).to include("Price Half-width number", "Price Out of setting range")
       end
     end
