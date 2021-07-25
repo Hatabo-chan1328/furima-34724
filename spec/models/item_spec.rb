@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   describe '#create' do
     before do
-      user = FactoryBot.create(:user)
-      @item = FactoryBot.build(:item, user_id: user.id  )
+      @item = FactoryBot.build(:item )
     end
 
     context '商品出品ページへ登録出来ること' do
@@ -74,7 +73,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
 
-      it 'priceは、¥300以下では登録出来ないこと' do
+      it 'priceは、¥299以下では登録出来ないこと' do
         @item.price = 200
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
@@ -105,38 +104,38 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price Half-width number")
       end
 
-      it 'condition_id:1以外' do
+      it 'condition_id:1では出品できないこと' do
         @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
 
-      it 'category_id:1以外' do
+      it 'category_id:1では出品できないこと' do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
 
-      it 'delivery_fee_id:1以外' do
+      it 'delivery_fee_id:1では出品できないこと' do
         @item.delivery_fee_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery fee can't be blank")
       end
 
-      it 'delivery_day_id:1以外' do
+      it 'delivery_day_id:1では出品できないこと' do
         @item.delivery_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery day can't be blank")
       end
 
-      it 'prefecture_id:1以外' do
+      it 'prefecture_id:1では出品できないこと' do
         @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
       it 'user_idがないと登録出来ないこと' do
-        @item.user_id = nil
+        @item.user = nil
         @item.valid?
         expect(@item.errors.full_messages).to include("User must exist")
       end
