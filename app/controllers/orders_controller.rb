@@ -1,13 +1,12 @@
 class OrdersController < ApplicationController
-  before_action :sold_out_item, only:[:index]
+  before_action :set_item, only:[:index, :create]
+  before_action :sold_out_item, only:[:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
       pay_item
@@ -33,7 +32,11 @@ class OrdersController < ApplicationController
       )
   end
 
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
   def sold_out_item
-    redirect_to root_path if item.purchase.present?
+    redirect_to root_path if @item.purchase.present?
   end
 end
