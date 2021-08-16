@@ -81,6 +81,19 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include("Phone number Phone number is invalid. Input only number")
       end
 
+      it 'phone_numberが数字のみでないと購入できないこと' do
+        @purchase_address.phone_number = '090-123-456'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number Phone number is invalid. Input only number")
+      end
+
+      it 'phone_numberが全角文字では購入できないこと' do
+        @purchase_address.phone_number = '０９０１２３４５６７'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number Phone number is invalid. Input only number")
+      end
+
+
       it 'user_idがないと購入出来ないこと' do
         @purchase_address.user_id = nil
         @purchase_address.valid?
