@@ -17,10 +17,10 @@ class Item < ApplicationRecord
    validates :price
   end
 
-  validates :price, numericality: { with: /\A[0-9]+\z/, message: 'Half-width number' }
-  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'Out of setting range' }
+  validates :price, numericality: { with: /\A[0-9]+\z/, message: 'を半角数字にしてください' }
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, message: 'を設定範囲内にしてください' }
 
-  with_options numericality: { other_than: 1 , message: "can't be blank" } do
+  with_options numericality: { other_than: 1 , message: "を選択してください" } do
    validates :category_id
    validates :condition_id
    validates :delivery_fee_id
